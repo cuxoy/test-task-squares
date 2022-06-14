@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import SquareItem from "../squareItem/SquareItem";
 import { squares } from "../../content";
-import { squaresLoaded, stateUpdate } from "../../actions/actions";
+import { squaresLoaded} from "../../actions/actions";
 import "./style.scss";
 
 const SquareItemsList = () => {

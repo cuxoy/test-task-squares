@@ -1,4 +1,3 @@
-import { squares } from "../content";
 
 const initialState = {
   squares: [],
@@ -13,7 +12,7 @@ const reduser = (state = initialState, action) => {
       return { ...state, squares: action.payload };
 
     case "SQUARE_CHANGED":
-      const arr = [...squares]
+      const arr = [...state.squares]
       arr[state.squareId] = {
         id:state.squareId,
         title:action.payload.text,
