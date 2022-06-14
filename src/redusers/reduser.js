@@ -18,7 +18,6 @@ const reduser = (state = initialState, action) => {
         title:action.payload.text,
         color:action.payload.color
       }
-      console.log(arr);
       return { ...state, squares:arr};
 
     case "FORM_VISIBLE":
