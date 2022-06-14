@@ -6,6 +6,21 @@ export const squaresLoaded = (squares)=>{
     }
 
 }
+export const stateUpdate = () =>{
+    return{
+        type: "STATE_UPDATE"
+    }
+}
+export const squareChanged = (id,color,text) =>{
+    return{
+        type: "SQUARE_CHANGED",
+        payload:{
+            id:id,
+            color:color,
+            text:text
+        }
+    }
+}
 export const formVisible = (id)=>{
     return{
         type:"FORM_VISIBLE",
