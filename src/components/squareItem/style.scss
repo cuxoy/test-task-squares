@@ -1,13 +1,13 @@
 .square-item {
-    padding: 3px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100px;
-    height: 100px;
-    &:hover{
-        opacity: 0.9;
-        box-shadow: 5px 2px 2px #8d8989; 
-        transition: all 0.6s
-    }
-    }
+  padding: 3px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: 100px;
+  &:hover {
+    opacity: 0.9;
+    box-shadow: 5px 2px 2px #8d8989;
+    transition: all 0.6s;
+  }
+}

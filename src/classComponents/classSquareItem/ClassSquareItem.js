@@ -1,24 +1,24 @@
-import { useDispatch, useSelector } from "react-redux";
+// import { useDispatch} from "react-redux";
+import { Component } from "react";
 import { formVisible } from "../../actions/actions";
-import "./style.scss";
+import "../../components/squareItem/style.scss";
 
-const SquareItem = ({ id, color, text }) => {
+class ClassSquareItem extends Component {
+  constructor(props) {
+    super(props);
+  }
 
-  const dispatch = useDispatch();
-
-  const onFormOpen = () => {
-    dispatch(formVisible(id));
-  };
-  
-  return (
-    <div
-      key={id}
-      className="square-item"
-      style={{ "background-color": `${color}` }}
-      onClick={onFormOpen}
-    >
-      {text}
-    </div>
-  );
-};
-export default SquareItem;
+  render() {
+    return (
+      <div
+        key={5}
+        className="square-item"
+        style={{ "background-color": `#fff` }}
+        // onClick={onFormOpen}
+      >
+        {"asdasdasd"}
+      </div>
+    );
+  }
+}
+export default ClassSquareItem;

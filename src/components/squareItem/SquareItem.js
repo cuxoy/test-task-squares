@@ -1,15 +1,14 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { formVisible } from "../../actions/actions";
 import "./style.scss";
 
 const SquareItem = ({ id, color, text }) => {
-
   const dispatch = useDispatch();
 
   const onFormOpen = () => {
     dispatch(formVisible(id));
   };
-  
+
   return (
     <div
       key={id}

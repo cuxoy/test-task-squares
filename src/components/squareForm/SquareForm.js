@@ -6,28 +6,26 @@ import "./squareForm.scss";
 const SquareForm = () => {
   const visibility = useSelector((state) => state.formStatus);
   const squareId = useSelector((state) => state.squareId);
-  const color = useSelector((state) => state.formColor);
+  let color = useSelector((state) => state.formColor);
 
   const [textState, setTextState] = useState("");
-  const [colorState, setColorState] = useState(color);
+  const [colorState, setColorState] = useState("#111");
   const dispatch = useDispatch();
 
   const onClose = () => {
     dispatch(formHidden());
-    setTextState("")
+    setTextState("");
     setColorState(color);
   };
 
   const onSubmit = (e) => {
     e.preventDefault();
-
-    const color = e.target.color.value;
-    const text =
-      e.target.text.value.length > 10
-        ? e.target.text.value.slice(0, 10) + "..."
-        : e.target.text.value;
-
-    dispatch(squareChanged(squareId, color, text));
+    const id = squareId;
+    color = colorState;
+    const text = () => {
+      return textState.length > 10 ? textState.slice(0, 10) + "..." : textState;
+    };
+    dispatch(squareChanged(id, color, text()));
     onClose();
   };
 
@@ -40,12 +38,14 @@ const SquareForm = () => {
       <form onSubmit={onSubmit}>
         <div className="wrapper">
           <label htmlFor="color">choose the color:</label> <br />
-          <input type="color"
-                 name="color"
-                 id="color"
-                 className="color-panel"
-                 value={colorState}
-                 onChange={(e)=>setColorState(e.target.value)}/>
+          <input
+            type="color"
+            name="color"
+            id="color"
+            className="color-panel"
+            value={colorState}
+            onChange={(e) => setColorState(e.target.value)}
+          />
           <br />
         </div>
         <div className="wrapper">

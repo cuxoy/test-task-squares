@@ -1,4 +1,3 @@
-
 const initialState = {
   squares: [],
   formStatus: "hidden",
@@ -12,20 +11,23 @@ const reduser = (state = initialState, action) => {
       return { ...state, squares: action.payload };
 
     case "SQUARE_CHANGED":
-      const arr = [...state.squares]
-      arr[state.squareId] = {
-        id:state.squareId,
-        title:action.payload.text,
-        color:action.payload.color
-      }
-      return { ...state, squares:arr};
+      const arr = state.squares.map((item) => {
+        if (item.id == action.payload.id) {
+          return (item = {
+            id: action.payload.id,
+            color: action.payload.color,
+            title: action.payload.text,
+          });
+        } else return item;
+      });
+      return { ...state, squares: arr };
 
     case "FORM_VISIBLE":
       return {
         ...state,
         formStatus: action.payload.visibility,
         formColor: state.squares[action.payload.id].color,
-        squareId: state.squares[action.payload.id].id
+        squareId: state.squares[action.payload.id].id,
       };
     case "FORM_HIDDEN":
       return { ...state, formStatus: action.payload };
