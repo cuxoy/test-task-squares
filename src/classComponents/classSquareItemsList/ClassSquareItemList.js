@@ -1,31 +1,51 @@
 import { Component } from "react";
-// import { useEffect } from "react";
-// import { useDispatch, useSelector } from "react-redux";
-// import {ClassSquareItem} from "../classSquareItem"
+import { connect } from "react-redux";
 import { squares } from "../../content";
-import { squaresLoaded } from "../../actions/actions";
+import { squaresLoaded, formVisible } from "../../actions/actions";
 import "../../components/squareItemsList/style.scss";
 
 class ClassSquareItemsList extends Component {
-  // constructor(props) {
-  //   super(props);
-  // }
+  componentDidMount() {
+    this.props.loaded();
+  }
+  onFormOpen = (e) => {
+    this.props.formVisible(e.target.id);
+  };
 
   render() {
-    const text = "text"
-    return (
-     <div className="squares-container">
-      <div
-        key={5}
-        className="square-item"
-        style={{ "background-color": `#fff` }}
-        // onClick={onFormOpen}
-      >
-        {text}
-      </div>
-    </div>
-    )
+    const { squaresList } = this.props;
+    const itemList = squaresList.map((item) => {
+      return (
+        <div
+          id={item.id}
+          key={item.id}
+          className="square-item"
+          style={{ "background-color": `${item.color}` }}
+          onClick={this.onFormOpen}
+        >
+          {item.title}
+        </div>
+      );
+    });
+    return <div className="squares-container">{itemList}</div>;
   }
 }
 
-export default ClassSquareItemsList;
+const mapStateToProps = (state) => {
+  return {
+    squaresList: state.squares,
+    squaresId: state.squaresId,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    loaded: () => dispatch(squaresLoaded(squares)),
+    formVisible: (id) => dispatch(formVisible(id)),
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ClassSquareItemsList);
