@@ -1,7 +1,7 @@
 const initialState = {
   squares: [],
   formStatus: "hidden",
-  formColor: "",
+  formColor: "#111",
   squareId: "",
 };
 

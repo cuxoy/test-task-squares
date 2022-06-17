@@ -34,6 +34,7 @@ const SquareForm = () => {
       className="form-container"
       style={{ visibility: visibility, "background-color": color }}
     >
+      <div className="subheader">functional</div>
       <h3 className="form-header">Modify this square:</h3>
       <form onSubmit={onSubmit}>
         <div className="wrapper">

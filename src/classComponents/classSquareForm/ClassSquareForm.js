@@ -25,7 +25,6 @@ class ClassSquareForm extends Component {
         ? this.state.textState.slice(0, 10) + "..."
         : this.state.textState;
     };
-    console.log(id, color, text());
     this.props.squareChanged(id, color, text());
     this.onClose();
   };
@@ -38,6 +37,7 @@ class ClassSquareForm extends Component {
           "background-color": this.props.formColor,
         }}
       >
+        <div className="subheader">class</div>
         <h3 className="form-header">Modify this square:</h3>
         <form onSubmit={this.onSubmit}>
           <div className="wrapper">

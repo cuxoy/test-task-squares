@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { squares } from "../../content";
 import { squaresLoaded, formVisible } from "../../actions/actions";
 import "../../components/squareItemsList/style.scss";
+import "../../components/squareItem/style.scss";
 
 class ClassSquareItemsList extends Component {
   componentDidMount() {
@@ -20,7 +21,10 @@ class ClassSquareItemsList extends Component {
           id={item.id}
           key={item.id}
           className="square-item"
-          style={{ "background-color": `${item.color}` }}
+          style={{
+            "background-color": `${item.color}`,
+            "border-radius": "10px",
+          }}
           onClick={this.onFormOpen}
         >
           {item.title}
