@@ -1,38 +1,48 @@
 const initialState = {
-  squares: [],
-  formStatus: "hidden",
-  formColor: "#111",
-  squareId: "",
+  squares: {},
+  componentType: null,
+  loadingStatus: "idle",
+  activeSquareId: null,
 };
 
-const reduser = (state = initialState, action) => {
-  switch (action.type) {
+const reduser = (state = initialState, { type, payload }) => {
+  switch (type) {
+    case "SQUARES_LOADING": {
+      return { ...state, loadingStatus: "loading" };
+    }
     case "SQUARES_LOADED":
-      return { ...state, squares: action.payload };
-
-    case "SQUARE_CHANGED":
-      const arr = state.squares.map((item) => {
-        if (item.id == action.payload.id) {
-          return (item = {
-            id: action.payload.id,
-            color: action.payload.color,
-            title: action.payload.text,
-          });
-        } else return item;
-      });
-      return { ...state, squares: arr };
-
-    case "FORM_VISIBLE":
       return {
         ...state,
-        formStatus: action.payload.visibility,
-        formColor: state.squares[action.payload.id].color,
-        squareId: state.squares[action.payload.id].id,
+        loadingStatus: "loaded",
+        squares: payload.reduce((id, item) => {
+          id[item.id] = item;
+          return id;
+        }, {}),
+      };
+
+    case "SQUARE_CHANGED":
+      const changedSquares = {
+        ...state.squares,
+        [payload.id]: {
+          id: payload.id,
+          title: payload.text,
+          color: payload.color,
+        },
+      };
+      return { ...state, squares: changedSquares };
+
+    case "FORM_VISIBLE":
+      const visibleSquare = state.squares[payload.id];
+      return {
+        ...state,
+        activeSquareId: visibleSquare.id,
       };
     case "FORM_HIDDEN":
-      return { ...state, formStatus: action.payload };
+      return { ...state, activeSquareId: null };
     default:
       return state;
+    case "LOAD_COMPONENT":
+      return { ...state, componentType: payload };
   }
 };
 export default reduser;

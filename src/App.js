@@ -1,12 +1,26 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import SquareItemsList from "./components/squareItemsList/SquareItemsList";
-import SquareForm from "./components/squareForm/SquareForm";
-import ClassSquareItemsList from "./classComponents/classSquareItemsList/ClassSquareItemList";
-import ClassSquareForm from "./classComponents/classSquareForm/ClassSquareForm";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import FunctionPage from "./pages/FunctionPage";
+import ClassPage from "./pages/ClassPage";
+import squares from "./mocks/content.json";
+import { loadSquaresMiddleware } from "./actions/actions";
 import ToggleComponents from "./components/toggleComponents/ToggleComponents";
+
 import "./App.css";
 
 function App() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(loadSquaresMiddleware(squares.squares));
+  }, []);
+  const selectedPage = useSelector((state) => state.componentType);
+
   return (
     <>
       <Router>
@@ -15,19 +29,17 @@ function App() {
           <Route
             path="/"
             element={
-              <>
-                <SquareItemsList />
-                <SquareForm />
-              </>
+              selectedPage === "class" ? (
+                <Navigate to="/class" />
+              ) : (
+                <FunctionPage />
+              )
             }
           />
           <Route
             path="/class"
             element={
-              <>
-                <ClassSquareItemsList />
-                <ClassSquareForm />
-              </>
+              selectedPage === "function" ? <Navigate to="/" /> : <ClassPage />
             }
           />
         </Routes>

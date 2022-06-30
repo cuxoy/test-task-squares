@@ -1,33 +1,29 @@
 import { Component } from "react";
 import { connect } from "react-redux";
-import { squares } from "../../content";
-import { squaresLoaded, formVisible } from "../../actions/actions";
+import { loadSquares, formVisible } from "../../actions/actions";
 import "../../components/squareItemsList/style.scss";
 import "../../components/squareItem/style.scss";
 
 class ClassSquareItemsList extends Component {
-  componentDidMount() {
-    this.props.loaded();
-  }
-  onFormOpen = (e) => {
+  handleFormVisibility = (e) => {
     this.props.formVisible(e.target.id);
   };
 
   render() {
     const { squaresList } = this.props;
-    const itemList = squaresList.map((item) => {
+    const itemList = Object.values(squaresList).map(({ id, color, title }) => {
       return (
         <div
-          id={item.id}
-          key={item.id}
+          id={id}
+          key={id}
           className="square-item"
           style={{
-            "background-color": `${item.color}`,
+            "background-color": `${color}`,
             "border-radius": "10px",
           }}
-          onClick={this.onFormOpen}
+          onClick={this.handleFormVisibility}
         >
-          {item.title}
+          {title}
         </div>
       );
     });
@@ -44,7 +40,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    loaded: () => dispatch(squaresLoaded(squares)),
     formVisible: (id) => dispatch(formVisible(id)),
   };
 };

@@ -1,6 +1,8 @@
 import { Component } from "react";
 import { connect } from "react-redux";
-import { formHidden, squareChanged } from "../../actions/actions";
+import { formHidden, changeSquare } from "../../actions/actions";
+import { DebounceInput } from "react-debounce-input";
+import textSlide from "../../utils/textSlider";
 import "../../components/squareForm/squareForm.scss";
 
 class ClassSquareForm extends Component {
@@ -18,14 +20,11 @@ class ClassSquareForm extends Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-    const id = this.props.squareId;
+    const id = this.props.activeSquareId;
     const color = this.state.colorState;
-    const text = () => {
-      return this.state.textState.length > 10
-        ? this.state.textState.slice(0, 10) + "..."
-        : this.state.textState;
-    };
-    this.props.squareChanged(id, color, text());
+    const text = textSlide(this.state.textState);
+    const squareChanged = { id, color, text };
+    this.props.changeSquare(squareChanged);
     this.onClose();
   };
   render() {
@@ -33,7 +32,7 @@ class ClassSquareForm extends Component {
       <div
         className="form-container"
         style={{
-          visibility: this.props.formStatus,
+          visibility: this.props.isFormVisible,
           "background-color": this.props.formColor,
         }}
       >
@@ -42,7 +41,7 @@ class ClassSquareForm extends Component {
         <form onSubmit={this.onSubmit}>
           <div className="wrapper">
             <label htmlFor="color">choose the color:</label> <br />
-            <input
+            <DebounceInput
               type="color"
               name="color"
               id="color"
@@ -55,7 +54,8 @@ class ClassSquareForm extends Component {
           <div className="wrapper">
             <label htmlFor="text">enter the text:</label>
             <br />
-            <textarea
+            <DebounceInput
+              element="textarea"
               className="form-textarea"
               type="text"
               name="text"
@@ -80,17 +80,19 @@ class ClassSquareForm extends Component {
 }
 
 const mapStateToProps = (state) => {
+  const activeSquareColor = state.activeSquareId
+    ? state.squares[state.activeSquareId].color
+    : null;
   return {
-    formStatus: state.formStatus,
-    squareId: state.squareId,
-    formColor: state.formColor,
+    isFormVisible: state.activeSquareId ? "visible" : "hidden",
+    activeSquareId: state.activeSquareId,
+    formColor: activeSquareColor,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    squareChanged: (id, color, text) =>
-      dispatch(squareChanged(id, color, text)),
+    changeSquare: (squareChanged) => dispatch(changeSquare(squareChanged)),
     formHidden: () => dispatch(formHidden()),
   };
 };

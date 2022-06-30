@@ -1,16 +1,25 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
-import { formHidden, squareChanged } from "../../actions/actions";
+import { formHidden, changeSquare } from "../../actions/actions";
+import textSlide from "../../utils/textSlider";
 import "./squareForm.scss";
+import { DebounceInput } from "react-debounce-input";
 
 const SquareForm = () => {
-  const visibility = useSelector((state) => state.formStatus);
-  const squareId = useSelector((state) => state.squareId);
-  let color = useSelector((state) => state.formColor);
+  const dispatch = useDispatch();
+
+  const activeSquareId = useSelector((state) => state.activeSquareId);
+  const selectedSquare = useSelector((state) => state.squares)[activeSquareId];
+
+  let isFormVisible = useSelector((state) => selectedSquare)
+    ? "visible"
+    : "hidden";
+
+  let color = selectedSquare ? selectedSquare.color : null;
+  let text = selectedSquare ? textSlide(selectedSquare.title) : null;
 
   const [textState, setTextState] = useState("");
-  const [colorState, setColorState] = useState("#111");
-  const dispatch = useDispatch();
+  const [colorState, setColorState] = useState("#fff");
 
   const onClose = () => {
     dispatch(formHidden());
@@ -20,26 +29,27 @@ const SquareForm = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    const id = squareId;
+    const id = activeSquareId;
+    text = textSlide(textState);
     color = colorState;
-    const text = () => {
-      return textState.length > 10 ? textState.slice(0, 10) + "..." : textState;
-    };
-    dispatch(squareChanged(id, color, text()));
+    const squareChanged = { id, color, text };
+    dispatch(changeSquare(squareChanged));
     onClose();
   };
 
   return (
     <div
       className="form-container"
-      style={{ visibility: visibility, "background-color": color }}
+      style={{ visibility: isFormVisible, "background-color": color }}
     >
       <div className="subheader">functional</div>
       <h3 className="form-header">Modify this square:</h3>
       <form onSubmit={onSubmit}>
         <div className="wrapper">
           <label htmlFor="color">choose the color:</label> <br />
-          <input
+          <DebounceInput
+            minLength={1}
+            ebounceTimeout={300}
             type="color"
             name="color"
             id="color"
@@ -52,12 +62,14 @@ const SquareForm = () => {
         <div className="wrapper">
           <label htmlFor="text">enter the text:</label>
           <br />
-          <textarea
+          <DebounceInput
+            element="textarea"
             className="form-textarea"
+            minLength={1}
+            ebounceTimeout={300}
             type="text"
             name="text"
             id="text"
-            placeholder="enter the text"
             value={textState}
             onChange={(e) => setTextState(e.target.value)}
           />

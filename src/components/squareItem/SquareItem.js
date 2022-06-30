@@ -6,16 +6,16 @@ import "./style.scss";
 const SquareItem = ({ id, color, text }) => {
   const dispatch = useDispatch();
 
-  const onFormOpen = () => {
+  const handleFormVisibility = () => {
     dispatch(formVisible(id));
   };
 
   return (
     <div
-      key={id}
+      id={id}
       className="square-item"
       style={{ "background-color": `${color}` }}
-      onClick={onFormOpen}
+      onClick={handleFormVisibility}
     >
       {text}
     </div>
