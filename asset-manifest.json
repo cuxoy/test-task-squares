@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/static/css/main.54a0e1e7.css",
-    "main.js": "/static/js/main.9c9fb85a.js",
-    "index.html": "/index.html",
-    "main.54a0e1e7.css.map": "/static/css/main.54a0e1e7.css.map",
-    "main.9c9fb85a.js.map": "/static/js/main.9c9fb85a.js.map"
+    "main.css": "/cuxoy.github.io/static/css/main.f201a1a3.css",
+    "main.js": "/cuxoy.github.io/static/js/main.d8638c14.js",
+    "index.html": "/cuxoy.github.io/index.html",
+    "main.f201a1a3.css.map": "/cuxoy.github.io/static/css/main.f201a1a3.css.map",
+    "main.d8638c14.js.map": "/cuxoy.github.io/static/js/main.d8638c14.js.map"
   },
   "entrypoints": [
-    "static/css/main.54a0e1e7.css",
-    "static/js/main.9c9fb85a.js"
+    "static/css/main.f201a1a3.css",
+    "static/js/main.d8638c14.js"
   ]
 }
