@@ -1,52 +1,52 @@
 {
   "squares": [
     {
-      "id": "1",
+      "id": "a",
       "title": "title 1",
       "color": "#0099e5"
     },
     {
-      "id": "2",
+      "id": "b",
       "title": "title 2",
       "color": "#ff4c4c"
     },
     {
-      "id": "3",
+      "id": "c",
       "title": "title 3",
       "color": "#34bf49"
     },
     {
-      "id": "4",
+      "id": "d",
       "title": "title 4",
       "color": "#d20962"
     },
     {
-      "id": "5",
+      "id": "e",
       "title": "title 5",
       "color": "#7d3f98"
     },
     {
-      "id": "6",
+      "id": "f",
       "title": "title 6",
       "color": "#00bce4"
     },
     {
-      "id": "7",
+      "id": "g",
       "title": "title 7",
       "color": "#7ac143"
     },
     {
-      "id": "8",
+      "id": "h",
       "title": "title 8",
       "color": "#ffd900"
     },
     {
-      "id": "9",
+      "id": "i",
       "title": "title 9",
       "color": "#003666"
     },
     {
-      "id": "10",
+      "id": "j",
       "title": "title 10",
       "color": "#050f2c"
     }

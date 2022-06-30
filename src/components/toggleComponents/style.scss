@@ -1,0 +1,24 @@
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  &__toggle {
+    margin-top: 20px;
+    font-size: 19spx;
+    &:hover {
+      text-decoration: underline;
+      font-weight: bold;
+    }
+  }
+  &__link {
+    text-decoration: none;
+    position: absolute;
+    top: 30px;
+    right: 150px;
+    font-size: 20px;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
